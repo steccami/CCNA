@@ -1,0 +1,31 @@
+R1#
+R1#conf t
+R1(config)#int g0/0
+R1(config-if)#ip address dhcp
+R1(config-if)#no shut
+R1(config-if)#end
+R1#
+R1#show ip int brief
+
+Interface                  IP-Address      OK? Method Status                Protocol
+GigabitEthernet0/0         unassigned      YES DHCP   up                    up
+GigabitEthernet0/1         unassigned      YES unset  administratively down down
+
+R1#
+
+*Jan  5 15:37:05.824: %DHCP-6-ADDRESS_ASSIGN: Interface GigabitEthernet0/0 assigned DHCP address 10.1.2.253, mask 255.255.255.0, hostname R1
+
+R1#
+R1#show ip int brief
+Interface                  IP-Address      OK? Method Status                Protocol
+GigabitEthernet0/0         10.1.2.253      YES DHCP   up                    up
+GigabitEthernet0/1         unassigned      YES unset  administratively down down
+
+R1#
+R1#conf t
+R1(config)#int g0/1
+R1(config-if)#ip address 192.168.0.1 255.255.255.0
+R1(config-if)#ip helper-address 10.1.2.1
+R1(config-if)#no shut
+R1(config-if)#end
+R1#

@@ -1,0 +1,31 @@
+
+
+R2#conf t
+R2(config)#int g0/0
+R2(config-if)#ip add 10.1.2.1 255.255.255.0
+R2(config-if)#no shut
+R2(config-if)#exit
+R2(config)#
+
+
+R2(config)#service dhcp
+R2(config)#ip dhcp excluded-address 10.1.2.1 10.1.2.252
+R2(config)#ip dhcp excluded-address 10.1.2.254
+R2(config)#
+R2(config)#ip dhcp pool P2P
+R2(dhcp-config)#network 10.1.2.0 255.255.255.0
+R2(dhcp-config)#exit
+R2(config)#
+R2(config)#ip dhcp excluded-address 192.168.0.1 192.168.0.100
+R2(config)#ip dhcp excluded-address 192.168.0.110 192.168.0.252
+R2(config)#ip dhcp excluded-address 192.168.0.254
+R2(config)#
+R2(config)#ip dhcp pool MyLAN
+R2(dhcp-config)#network 192.168.0.0 255.255.255.0
+R2(dhcp-config)#default-router 192.168.0.1
+R2(dhcp-config)#dns-server 10.2.3.254
+R2(dhcp-config)#domain-name mymindsmadness.co.uk
+R2(dhcp-config)#exit
+R2(config)#
+R2(config)#ip route 192.168.0.0 255.255.255.0 g0/0
+R2(config)#
