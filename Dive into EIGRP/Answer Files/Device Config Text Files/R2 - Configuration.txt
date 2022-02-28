@@ -1,0 +1,32 @@
+R2#
+R2# conf t 
+R2(config)# interface GigabitEthernet0/0
+R2(config-if)# description LINK TO R2
+R2(config-if)# ip address 10.1.2.2 255.255.255.0
+R2(config-if)# exit
+R2(config)# 
+R2(config)# interface GigabitEthernet0/1
+R2(config-if)# description LINK TO R3
+R2(config-if)# ip address 10.2.3.2 255.255.255.0
+R2(config-if)# exit
+R2(config)# 
+R2(config)# interface Loopback1
+R2(config-if)# description LINK TO SIMULATED INTERNET
+R2(config-if)# ip address 208.113.96.2 255.255.255.240
+R2(config-if)# exit
+R2(config)# 
+R2(config)# interface Loopback10
+R2(config-if)#  description LINK TO LAN10
+R2(config-if)#  ip address 10.10.10.2 255.255.255.0
+R2(config-if)# exit
+R2(config)# 
+R2(config)#router eigrp 999
+R2(config-router)# eigrp router-id 100.100.100.2
+R2(config-router)# redistribute static 
+R2(config-router)# passive-interface Loopback10
+R2(config-router)# passive-interface Loopback1
+R2(config-router)# network 10.1.2.0 0.0.0.255
+R2(config-router)# network 10.2.3.0 0.0.0.255
+R2(config-router)# network 10.10.10.0 0.0.0.255
+R2(config-router)# end
+R2#
